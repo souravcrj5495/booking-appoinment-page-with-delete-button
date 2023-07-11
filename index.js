@@ -33,6 +33,13 @@ const appendEntry = (entry, key) => {
     const entryDetails = document.createElement('p');
     entryDetails.textContent = `Name: ${entry.name}, Email: ${entry.email}`;
 
+      // Create an edit button for the entry
+      const editButton = document.createElement('button');
+      editButton.textContent = 'Edit';
+      editButton.addEventListener('click', () => {
+          editEntry(entry, key);
+      });
+
     // Create a delete button for the entry
     const deleteButton = document.createElement('button');
     deleteButton.textContent = 'Delete';
@@ -44,6 +51,7 @@ const appendEntry = (entry, key) => {
     // Append the entry details and delete button to the entry div
     entryDiv.appendChild(entryDetails);
     entryDiv.appendChild(deleteButton);
+    entryDiv.appendChild(editButton);
 
     // Append the entry div to the entries container
     entriesContainer.appendChild(entryDiv);
@@ -75,4 +83,16 @@ const loadEntries = () => {
             appendEntry(entry, key);
         }
     }
+};
+
+const editEntry = (entry, key) => {
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+
+    // Set the input field values to the existing entry values
+    nameInput.value = entry.name;
+    emailInput.value = entry.email;
+
+    // Delete the existing entry
+    deleteEntry(key);
 };
